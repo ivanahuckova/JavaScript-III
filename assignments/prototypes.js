@@ -21,7 +21,7 @@ function GameObject(attributes) {
 }
 
 GameObject.prototype.destroy = function() {
-	return `${this.name} was removed from the game`;
+	return `${this.name} was removed from the game.`;
 };
 
 /*
@@ -62,7 +62,7 @@ function Humanoid(attributes) {
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
-	return `${this.name} offers a greeting in ${this.language}`;
+	`${this.name} offeres a greeting in ${this.language}`;
 };
 
 /*
@@ -128,5 +128,53 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 // Stretch task:
 // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
+function Villain(attributes) {
+	Humanoid.call(this, attributes);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+function Hero(attributes) {
+	Humanoid.call(this, attributes);
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
+Villain.prototype.fightHero = function(nameOfHero) {
+	this.healthPoints--;
+	console.log(`${this.name}'s health points: ${this.healthPoints}`);
+};
+
+Hero.prototype.fightVillain = function(nameOfVillain) {
+	this.healthPoints--;
+	console.log(`${this.name}'s health points: ${this.healthPoints}`);
+};
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
+const spiderman = new Hero({
+	createdAt: new Date(),
+	dimensions: {
+		length: 5,
+		width: 3,
+		height: 7
+	},
+	healthPoints: 12,
+	name: "spiderman",
+	team: "Avengers",
+	weapons: ["Spider web", "Quick moves"],
+	language: "English"
+});
+
+const joker = new Villain({
+	createdAt: new Date(),
+	dimensions: {
+		length: 5,
+		width: 3,
+		height: 7
+	},
+	healthPoints: 10,
+	name: "joker",
+	team: "Alone Team",
+	weapons: ["Knife", "Kicks"],
+	language: "English"
+});
