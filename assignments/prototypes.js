@@ -63,7 +63,7 @@ function Humanoid(attributes) {
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
-	`${this.name} offeres a greeting in ${this.language}`;
+	return `${this.name} offeres a greeting in ${this.language}`;
 };
 
 /*
@@ -142,26 +142,18 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 
-Villain.prototype.fightHero = function(nameOfHero) {
-	nameOfHero.healthPoints--;
-	console.log(`${nameOfHero.name}'s health points: ${nameOfHero.healthPoints}`);
-	return nameOfHero.takeDamage();
-};
-
-Hero.prototype.fightVillain = function(nameOfVillain) {
-	nameOfVillain.healthPoints--;
-	if (nameOfVillain.healthPoints <= 0) {
-		nameOfVillain.isAlive = false;
-		console.log(`${nameOfVillain.name} is dead.`);
-		return nameOfVillain.destroy();
+Humanoid.prototype.fight = function(name) {
+	name.healthPoints--;
+	if (name.healthPoints <= 0) {
+		name.isAlive = false;
+		console.log(`${name.name} is dead.`);
+		return name.destroy();
 	}
-	console.log(
-		`${nameOfVillain.name}'s health points: ${nameOfVillain.healthPoints}`
-	);
-	return nameOfVillain.takeDamage();
+	console.log(`${name.name}'s health points: ${name.healthPoints}`);
+	return name.takeDamage();
 };
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
-const spiderman = new Hero({
+const batman = new Hero({
 	createdAt: new Date(),
 	dimensions: {
 		length: 5,
@@ -169,7 +161,7 @@ const spiderman = new Hero({
 		height: 7
 	},
 	healthPoints: 12,
-	name: "Spiderman",
+	name: "Batman",
 	team: "Avengers",
 	weapons: ["Spider web", "Quick moves"],
 	language: "English"
